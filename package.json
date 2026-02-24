@@ -1,7 +1,7 @@
 {
-  "name": "discord-nuke-bot-simple",
-  "version": "1.0.0",
-  "description": "Discord Nuke Bot - Channel Delete, Create IMPOSTER-network, Message Spam",
+  "name": "discord-nuke-bot-ultra",
+  "version": "3.0.0",
+  "description": "ULTRA FAST Discord Nuke Bot - 1000 Channels + Mass Spam",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
