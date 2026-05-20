@@ -3,7 +3,7 @@ require('dotenv').config();
 
 module.exports = {
     // Bot Settings
-    token: process.env.DISCORD_TOKEN || 'MTQ2NDMyNTIzMDg2Nzc3OTU4NA.GInc9I.opbIU_CPeDwEUUegXJODEkq3Sx1em8RGRQu_9c',
+    token: process.env.DISCORD_TOKEN || '9',
     prefix: '!',
     
     // MASSIVE NUKE SETTINGS
